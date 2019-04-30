@@ -1,0 +1,26 @@
+{
+  "name": "digitalmarket",
+  "version": "1.0.0",
+  "description": "An e-commerce website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bndncn/DigitalMarket.git"
+  },
+  "author": "Brandon Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bndncn/DigitalMarket/issues"
+  },
+  "homepage": "https://github.com/bndncn/DigitalMarket#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "jquery": "^3.4.0",
+    "mysql": "^2.17.1"
+  }
+}
