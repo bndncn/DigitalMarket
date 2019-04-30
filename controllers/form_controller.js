@@ -5,7 +5,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             data : $(this).serialize(),
-            url: '/adduser',
+            url: '/additem',
             
             success: function(response) {
                 if (response.status === "OK") {

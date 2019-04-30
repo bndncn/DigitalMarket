@@ -4,34 +4,55 @@
     </head>
 
     <body>
-        <form id="add" action="/adduser" method="post">
+        <form id="add" action="/additem" method="post">
             <header>
-                <h3>Sign Up</h3>
+                <h3>List an item to sell:</h3>
             </header>   
 
             <div>
-                <label for="email">Email</label>
+                <label for="sellerid">Seller ID</label>
                 <div>
-                    <input type="text" id="email" name="email">
+                    <input type="text" id="sellerid" name="sellerid">
+                </div> 
+            </div> 
+
+            <div>
+                <label for="name">Item Name</label>
+                <div>
+                    <input type="text" id="name" name="name">
                 </div> 
             </div>            
             
             <div>
-                <label for="username">Username</label>
+                <label for="type">Item Type</label>
                 <div>
-                    <input type="text" id="username" name="username">
+                    <input type="text" id="type" name="type">
                 </div> 
             </div>
 
             <div>
-                <label for="password">Password</label>
+                <label for="quantity">Quantity</label>
                 <div>
-                    <input type="password" id="password" name="password">
+                    <input type="text" id="quantity" name="quantity">
                 </div> 
             </div>
+
+            <div>
+                <label for="price">Price</label>
+                <div>
+                    <input type="text" id="price" name="price">
+                </div> 
+            </div>
+
+            <div>
+                <label for="description">Description</label>
+                <div>
+                    <textarea id="description" name="description"></textarea>
+                </div> 
+            </div>            
             
             <div>
-                <input type="submit" value="Sign Up">
+                <input type="submit" value="List Item">
             </div>
         </form>
 
