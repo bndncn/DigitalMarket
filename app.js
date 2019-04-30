@@ -71,4 +71,20 @@ app.post('/items', function (req, res) {
     });
 });
 
+app.post('/items/:id', function (req, res) {
+    const id = req.params.id;
+
+    connection.query('SELECT * FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [id], function (error, results) {
+        const item = results[0]
+        connection.query('SELECT * FROM Item INNER JOIN Review ON Item.ItemId = Review.ItemId WHERE ItemId = ?', [id], function (error, results) {
+            res.render('pages/detaileditem', {
+                item: item,
+                reviews: results
+            });
+            console.log(item);
+            console.log(results);
+        });
+    });
+});
+
 app.listen(port, () => console.log('Starting DigitalMarket!'));

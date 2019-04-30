@@ -20,10 +20,20 @@
                 <td><%= items[i].Type %></td>
                 <td><%= items[i].Description %></td>
                 <td><%= items[i].Quantity %></td>
-                <td><%= items[i].Price %></td>
+                <td>$<%= items[i].Price %></td>
+                <td>
+                    <form action="/items/<%= items[i].ItemId %>" method="post"> 
+                        <input type="submit" value="More Details" />
+                    </form>
+                </td>
             </tr>
             <% } %>
         </table>
+
+        <a href="/">
+            <button>Back to homepage</button>
+         </a>
+
     </body>
     <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 </html>

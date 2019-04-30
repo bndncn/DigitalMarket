@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+    
+        <ul>
+            <li>Item Name: <%= item.Name %></li>
+            <li>Item Type: <%= item.Type %></li>
+            <li>Seller Name: <%= item.FirstName %> <%= item.LastName %></li>
+            <li>Quantity Left: <%= item.Quantity %></li>
+            <li>Price Per Item: $<%= item.Price %></li>
+            <li>Description: <%= item.Description %></li>
+        </ul>
+
+        <h3>Reviews</h3>
+
+        <div>
+            <% if (reviews == undefined) { %>
+                No Reviews
+            <% } else { %>
+                <% for (let i = 0; i < reviews.length; i++) { %>
+                    <tr>
+                        <td><%= items[i].ItemId %></td>
+                        <td><%= items[i].Name %></td>
+                        <td><%= items[i].SellerId %></td>
+                        <td><%= items[i].Type %></td>
+                        <td><%= items[i].Description %></td>
+                        <td><%= items[i].Quantity %></td>
+                        <td>$<%= items[i].Price %></td>
+                        <td>
+                            <form action="/items/<%= items[i].ItemId %>" method="post"> 
+                                <input type="submit" value="More Details" />
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            <% } %>
+        </div>
+
+        <a href="/">
+            <button>Back to homepage</button>
+         </a>
+
+        <form action="./" method="post"> 
+            <input type="submit" value="Back to list of items" />
+        </form>
+
+    </body>
+    <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+</html>
