@@ -56,10 +56,19 @@ app.post('/additem', function (req, res) {
     connection.query('INSERT INTO `Item` SET ?', item, function (error, results) {
         if (error) {
             console.log(error);
-            return res.status(400);
+            return res.sendStatus(400);
         }
         return res.json(item);
-      });
+    });
+});
+
+app.post('/items', function (req, res) {
+
+    connection.query('SELECT * FROM Item', function (error, results) {
+        res.render('pages/items', {
+            items: results
+        });
+    });
 });
 
 app.listen(port, () => console.log('Starting DigitalMarket!'));

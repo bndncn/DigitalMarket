@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <table align="center" border="1">
+            <tr>
+                <th>Item Id</th>
+                <th>Item Name</th> 
+                <th>SellerId</th>
+                <th>Item Type</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <% for (let i = 0; i < items.length; i++) { %>
+            <tr>
+                <td><%= items[i].ItemId %></td>
+                <td><%= items[i].Name %></td>
+                <td><%= items[i].SellerId %></td>
+                <td><%= items[i].Type %></td>
+                <td><%= items[i].Description %></td>
+                <td><%= items[i].Quantity %></td>
+                <td><%= items[i].Price %></td>
+            </tr>
+            <% } %>
+        </table>
+    </body>
+    <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+</html>

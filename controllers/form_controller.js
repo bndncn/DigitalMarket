@@ -17,28 +17,5 @@ $(document).ready(function() {
 
         });
     });
-
-    $('#verify').submit(function () {
-        ev.preventDefault();
-        $.ajax({
-            type: 'GET',
-            url: '/ui/verify',
-            success: function(response) {
-                $("html").html(response);
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            data : $(this).serialize(),
-            url: '/../verify',
-        });
-    });
     
-    $('#login').submit(function () {
-        $.ajax({
-            type: 'POST',
-            data : $(this).serialize(),
-            url: '/../login'
-        });
-    });
 });
