@@ -42,8 +42,9 @@ app.get('/node_modules/jquery/dist/jquery.min.js', function (req, res) {
 });
 
 app.post('/additem', function (req, res) {
-    const values = {
-        ItemId: generateId(),
+    const itemId = generateId();
+    const item = {
+        ItemId: itemId,
         SellerId: parseInt(req.body.sellerid),
         Quantity: parseInt(req.body.quantity),
         Name: req.body.name,
@@ -52,12 +53,12 @@ app.post('/additem', function (req, res) {
         Price: parseFloat(req.body.price)
     };
     
-    connection.query('INSERT INTO `Item` SET ?', values, function (error, results) {
+    connection.query('INSERT INTO `Item` SET ?', item, function (error, results) {
         if (error) {
             console.log(error);
-            return res.sendStatus(400);
+            return res.status(400);
         }
-        console.log(results);
+        return res.json(item);
       });
 });
 

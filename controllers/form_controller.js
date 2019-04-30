@@ -8,16 +8,11 @@ $(document).ready(function() {
             url: '/additem',
             
             success: function(response) {
-                if (response.status === "OK") {
-                    $.ajax({
-                        type: 'GET',
-                        url: '/ui/verify',
-                        success: function(response) {
-                            $("html").html(response);
-                        }
-                    });
-                }
+                alert('Added item ' + response.Name + ' with Id: ' + response.ItemId);
+            },
 
+            error: function(xhr) {
+                alert(JSON.parse(xhr.responseText).sqlMessage);
             }
 
         });
