@@ -2,9 +2,9 @@
 <html>
 
     <body>
-    
+        <h1>Item Name: <%= item.Name %></h1>
+
         <ul>
-            <li>Item Name: <%= item.Name %></li>
             <li>Item Type: <%= item.Type %></li>
             <li>Seller Name: <%= item.FirstName %> <%= item.LastName %></li>
             <li>Quantity Left: <%= item.Quantity %></li>
@@ -12,27 +12,55 @@
             <li>Description: <%= item.Description %></li>
         </ul>
 
-        <h3>Reviews</h3>
+        <div id="reviews">
+            <form id="addreview" action="/addreview" method="post">
+                <header>
+                    <h3>Write a Review</h3>
+                </header>            
+                
+                <div>
+                    <label for="title">Review Title</label>
+                    <div>
+                        <input type="text" id="title" name="title">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="rating">Rating</label>
+                </div>
 
-        <div>
+                <div>
+                    <input type="radio" id="rating" name="rating" value="1"> 1<br>
+                    <input type="radio" id="rating" name="rating" value="2"> 2<br>
+                    <input type="radio" id="rating" name="rating" value="3"> 3<br>  
+                    <input type="radio" id="rating" name="rating" value="4"> 4<br>
+                    <input type="radio" id="rating" name="rating" value="5"> 5<br>
+                </div>
+
+                <div>
+                    <label for="review">Review</label>
+                    <div>
+                        <textarea id="review" name="review"></textarea>
+                    </div> 
+                </div>   
+                
+                <div>
+                    <input type="submit" value="Submit Review">
+                </div>
+            </form>
+
+            <h3>Reviews:</h3>
+
             <% if (reviews == undefined) { %>
-                No Reviews
+                <h3>No Reviews</h3>
             <% } else { %>
                 <% for (let i = 0; i < reviews.length; i++) { %>
-                    <tr>
-                        <td><%= items[i].ItemId %></td>
-                        <td><%= items[i].Name %></td>
-                        <td><%= items[i].SellerId %></td>
-                        <td><%= items[i].Type %></td>
-                        <td><%= items[i].Description %></td>
-                        <td><%= items[i].Quantity %></td>
-                        <td>$<%= items[i].Price %></td>
-                        <td>
-                            <form action="/items/<%= items[i].ItemId %>" method="post"> 
-                                <input type="submit" value="More Details" />
-                            </form>
-                        </td>
-                    </tr>
+                    <ul>
+                        <li>Review Title: <%= reviews[i].Title %></li>
+                        <li>Reviewer: <%= reviews[i].BuyerId %></li>
+                        <li>Rating: <%= reviews[i].Rating %></li>
+                        <%= reviews[i].DetailedReview %>
+                    </ul>
                 <% } %>
             <% } %>
         </div>
@@ -47,4 +75,5 @@
 
     </body>
     <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../../controllers/form_controller.js'></script>
 </html>

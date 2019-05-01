@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('#add').submit(function (ev) {
+    $('#additem').submit(function (ev) {
         ev.preventDefault();
         $.ajax({
             type: 'POST',
@@ -17,7 +17,7 @@ $(document).ready(function() {
 
         });
 
-        $('#add')[0].reset();
+        $('#additem')[0].reset();
     });
 
     $('#signup').submit(function (ev) {
@@ -75,6 +75,26 @@ $(document).ready(function() {
             }
 
         });
+    });
+
+    $('#addreview').submit(function (ev) {
+        ev.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data : $(this).serialize(),
+            url: '/addreview',
+            
+            success: function(response) {
+                alert('Success: Review written');
+                $('#reviews').append(response);
+            },
+            
+            error: function() {
+                alert('You have already written a review for this item');
+            }
+            
+        });
+        $('#addreview')[0].reset();
     });
     
 });

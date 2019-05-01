@@ -74,8 +74,8 @@ app.post('/signup', function (req, res) {
 
 app.post('/login', function (req, res) {  
     const values = [req.body.id, req.body.password];
+    
     connection.query('SELECT * FROM Customer WHERE CustomerId = ? AND Password = ?', values, function (error, results) {
-
         if (results.length == 0) {
             return res.sendStatus(400);
         }
@@ -97,7 +97,7 @@ app.post('/additem', function (req, res) {
     const itemId = generateId();
     const item = {
         ItemId: itemId,
-        SellerId: req.body.sellerid,
+        SellerId: req.cookies.id,
         Quantity: parseInt(req.body.quantity),
         Name: req.body.name,
         Description: req.body.description,
@@ -114,8 +114,31 @@ app.post('/additem', function (req, res) {
     });
 });
 
-app.get('/items', function (req, res) {
+app.post('/addreview', function (req, res) {
+    const review = {
+        BuyerId: req.cookies.id,
+        ItemId: req.cookies.itemId,
+        Rating: req.body.rating,
+        Title: req.body.title,
+        DetailedReview: req.body.review
+    };
+    
+    connection.query('INSERT INTO `Review` SET ?', review, function (error, results) {
+        if (error) {
+            console.log(error);
+            return res.status(400).json(error);
+        }
+        const newHTML = `<ul>
+            <li>Review Title: ${req.body.title}</li>
+            <li>Reviewer: ${req.cookies.id}</li>
+            <li>Rating: ${req.body.rating}</li>
+            ${req.body.review}
+        </ul>`
+        return res.json(newHTML);
+    });
+});
 
+app.get('/items', function (req, res) {
     connection.query('SELECT * FROM Item', function (error, results) {
         res.render('pages/items', {
             items: results
@@ -126,9 +149,12 @@ app.get('/items', function (req, res) {
 app.get('/items/:id', function (req, res) {
     const id = req.params.id;
 
+    res.clearCookie('itemId');
+    res.cookie('itemId', id);
+
     connection.query('SELECT * FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [id], function (error, results) {
         const item = results[0]
-        connection.query('SELECT * FROM Item INNER JOIN Review ON Item.ItemId = Review.ItemId WHERE ItemId = ?', [id], function (error, results) {
+        connection.query('SELECT * FROM Item INNER JOIN Review ON Item.ItemId = Review.ItemId WHERE Item.ItemId = ?', [id], function (error, results) {
             res.render('pages/detaileditem', {
                 item: item,
                 reviews: results
