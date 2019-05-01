@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const crypto = require('crypto');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -26,7 +25,7 @@ function generateId() {
 
 app.get('/', function (req, res) {
     console.log('Homepage');
-    res.render('./pages/index');
+    res.render('pages/index');
 });
 
 app.get('/controllers/form_controller.js', function (req, res) {
@@ -41,14 +40,15 @@ app.get('/node_modules/jquery/dist/jquery.min.js', function (req, res) {
     });
 });
 
-app.post('/signup', function (req, res) {
+app.post('/signup', function (req, res) {  
     const customer = {
         CustomerId: req.body.id,
         FirstName: req.body.firstname,
         LastName: req.body.lastname,
         Email: req.body.email,
         PhoneNumber: req.body.phone,
-        Address: req.body.address
+        Address: req.body.address,
+        Password: req.body.password
     };
     
     connection.query('INSERT INTO `Customer` SET ?', customer, function (error, results) {
@@ -56,7 +56,19 @@ app.post('/signup', function (req, res) {
             console.log(error);
             return res.status(400).json(error);
         }
-        res.sendStatus(200);
+        return res.sendStatus(200);
+    });
+});
+
+app.post('/login', function (req, res) {  
+    const values = [req.body.username, req.body.password];
+    
+    connection.query('SELECT * FROM Customer WHERE CustomerId = ? AND Password = ?', values, function (error, results) {
+        console.log(results);
+        if (results.length == 0) {
+            return res.sendStatus(400);
+        }
+        return res.sendStatus(200);
     });
 });
 

@@ -16,7 +16,7 @@ $(document).ready(function() {
             }
 
         });
-        
+
         $('#add')[0].reset();
     });
 
@@ -38,6 +38,26 @@ $(document).ready(function() {
         });
 
         $('#signup')[0].reset();
+    });
+
+    $('#login').submit(function (ev) {
+        ev.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data : $(this).serialize(),
+            url: '/login',
+            
+            success: function() {
+                alert('Logging In');
+            },
+
+            error: function() {
+                alert('The password you have entered is wrong');
+            }
+
+        });
+
+        $('#login')[0].reset();
     });
     
 });
