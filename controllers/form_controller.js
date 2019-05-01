@@ -16,6 +16,28 @@ $(document).ready(function() {
             }
 
         });
+        
+        $('#add')[0].reset();
+    });
+
+    $('#signup').submit(function (ev) {
+        ev.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data : $(this).serialize(),
+            url: '/signup',
+            
+            success: function(response) {
+                alert('You have successfully registered!');
+            },
+
+            error: function(xhr) {
+                alert(JSON.parse(xhr.responseText).sqlMessage);
+            }
+
+        });
+
+        $('#signup')[0].reset();
     });
     
 });

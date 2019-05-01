@@ -5,12 +5,14 @@
     </head>
 
     <body>
-        <form action="/items" method="post">
+        <div>
             <header>
                 <h3>Purchase Items</h3>
             </header>  
-            <input type="submit" value="Show available items to purchase" />
-        </form>
+            <a href="/items">
+                <button>Show available items to purchase</button>
+            </a>
+        </div>
 
         <form id="add" action="/additem" method="post">
             <header>
@@ -64,17 +66,52 @@
             </div>
         </form>
 
-        <form id="login" action="" method="post">
+        <form id="signup" action="/signup" method="post">
             <header>
-                <h3>Login</h3>
+                <h3>Sign Up</h3>
             </header>            
             
             <div>
-                <label for="username">Username</label>
+                <label for="id">Customer ID</label>
                 <div>
-                    <input type="text" id="username" name="username">
+                    <input type="text" id="id" name="id">
                 </div> 
             </div>
+
+            <div>
+                <label for="firstname">First Name</label>
+                <div>
+                    <input type="text" id="firstname" name="firstname">
+                </div> 
+            </div>
+
+            <div>
+                <label for="lastname">Last Name</label>
+                <div>
+                    <input type="text" id="lastname" name="lastname">
+                </div> 
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <div>
+                    <input type="text" id="email" name="email">
+                </div> 
+            </div>
+
+            <div>
+                <label for="phone">Phone</label>
+                <div>
+                    <input type="text" id="phone" name="phone", maxlength="10">
+                </div> 
+            </div>
+
+            <div>
+                <label for="address">Address</label>
+                <div>
+                    <input type="text" id="address" name="address">
+                </div> 
+            </div>            
 
             <div>
                 <label for="password">Password</label>

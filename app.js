@@ -41,11 +41,30 @@ app.get('/node_modules/jquery/dist/jquery.min.js', function (req, res) {
     });
 });
 
+app.post('/signup', function (req, res) {
+    const customer = {
+        CustomerId: req.body.id,
+        FirstName: req.body.firstname,
+        LastName: req.body.lastname,
+        Email: req.body.email,
+        PhoneNumber: req.body.phone,
+        Address: req.body.address
+    };
+    
+    connection.query('INSERT INTO `Customer` SET ?', customer, function (error, results) {
+        if (error) {
+            console.log(error);
+            return res.status(400).json(error);
+        }
+        res.sendStatus(200);
+    });
+});
+
 app.post('/additem', function (req, res) {
     const itemId = generateId();
     const item = {
         ItemId: itemId,
-        SellerId: parseInt(req.body.sellerid),
+        SellerId: req.body.sellerid,
         Quantity: parseInt(req.body.quantity),
         Name: req.body.name,
         Description: req.body.description,
@@ -56,13 +75,13 @@ app.post('/additem', function (req, res) {
     connection.query('INSERT INTO `Item` SET ?', item, function (error, results) {
         if (error) {
             console.log(error);
-            return res.sendStatus(400);
+            return res.status(400).json(error);
         }
         return res.json(item);
     });
 });
 
-app.post('/items', function (req, res) {
+app.get('/items', function (req, res) {
 
     connection.query('SELECT * FROM Item', function (error, results) {
         res.render('pages/items', {
@@ -71,7 +90,7 @@ app.post('/items', function (req, res) {
     });
 });
 
-app.post('/items/:id', function (req, res) {
+app.get('/items/:id', function (req, res) {
     const id = req.params.id;
 
     connection.query('SELECT * FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [id], function (error, results) {

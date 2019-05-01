@@ -22,9 +22,9 @@
                 <td><%= items[i].Quantity %></td>
                 <td>$<%= items[i].Price %></td>
                 <td>
-                    <form action="/items/<%= items[i].ItemId %>" method="post"> 
-                        <input type="submit" value="More Details" />
-                    </form>
+                    <a href="/items/<%= items[i].ItemId %>">
+                        <button>More Details</button>
+                    </a>
                 </td>
             </tr>
             <% } %>
@@ -32,7 +32,7 @@
 
         <a href="/">
             <button>Back to homepage</button>
-         </a>
+        </a>
 
     </body>
     <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
