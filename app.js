@@ -28,14 +28,14 @@ function generateId() {
 app.get('/', function (req, res) {
     console.log('Homepage');
     console.log(req.cookies);
-    if (req.cookies.user) {
+    if (req.cookies.id) {
         res.render('pages/index', {
-            cookies: req.cookies
+            id: req.cookies.id
         });
     }
     else {
         res.render('pages/index', {
-            cookies: false
+            id: false
         });
     }
 });
@@ -75,18 +75,21 @@ app.post('/signup', function (req, res) {
 app.post('/login', function (req, res) {  
     const values = [req.body.id, req.body.password];
     connection.query('SELECT * FROM Customer WHERE CustomerId = ? AND Password = ?', values, function (error, results) {
-        console.log(results);
+
         if (results.length == 0) {
             return res.sendStatus(400);
         }
-        const user = {
-            id: req.body.id,
-            name: results[0].FirstName + ' ' + results[0].LastName
-        };
-        res.cookie('user', user);
+        res.cookie('id', req.body.id);
         res.render('pages/index', {
-            cookies: user
+            id: req.body.id
         });
+    });
+});
+
+app.post('/logout', function (req, res) {  
+    res.clearCookie('id');
+    res.render('pages/index', {
+        id: false
     });
 });
 

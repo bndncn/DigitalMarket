@@ -60,5 +60,21 @@ $(document).ready(function() {
 
         });
     });
+
+    $('#logout').submit(function (ev) {
+        ev.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data : $(this).serialize(),
+            url: '/logout',
+            
+            success: function(response) {
+                document.open();
+                document.write(response);
+                document.close();
+            }
+
+        });
+    });
     
 });

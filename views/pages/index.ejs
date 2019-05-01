@@ -14,10 +14,14 @@
             </a>
         </div>
 
-        <% if (cookies) { %>
+        <% if (id) { %>
+            <header>
+                <h3>Hello <%= id %>!</h3>
+            </header> 
+
             <form id="add" action="/additem" method="post">
                 <header>
-                    <h3>List an item to sell:</h3>
+                    <h3>List an item to sell</h3>
                 </header>   
     
                 <div>
@@ -64,6 +68,15 @@
                 
                 <div>
                     <input type="submit" value="List Item">
+                </div>
+            </form>
+
+            <form id="logout" action="/logout" method="post">             
+                <header>
+                    <h3>Logout</h3>
+                </header>  
+                <div>
+                    <input type="submit" value="Logout">
                 </div>
             </form>
         <% } else { %>
