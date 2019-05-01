@@ -47,17 +47,18 @@ $(document).ready(function() {
             data : $(this).serialize(),
             url: '/login',
             
-            success: function() {
-                alert('Logging In');
+            success: function(response) {
+                document.open();
+                document.write(response);
+                document.close();
             },
 
             error: function() {
-                alert('The password you have entered is wrong');
+                alert('You have entered the wrong password');
+                $('#login')[0].reset();
             }
 
         });
-
-        $('#login')[0].reset();
     });
     
 });

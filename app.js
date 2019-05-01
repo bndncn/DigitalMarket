@@ -1,6 +1,7 @@
 // Node modules
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
@@ -18,6 +19,7 @@ const MAX_INTEGER = 2147483647;
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 function generateId() {
     return Math.round(Math.random() * MAX_INTEGER);
@@ -25,7 +27,17 @@ function generateId() {
 
 app.get('/', function (req, res) {
     console.log('Homepage');
-    res.render('pages/index');
+    console.log(req.cookies);
+    if (req.cookies.user) {
+        res.render('pages/index', {
+            cookies: req.cookies
+        });
+    }
+    else {
+        res.render('pages/index', {
+            cookies: false
+        });
+    }
 });
 
 app.get('/controllers/form_controller.js', function (req, res) {
@@ -61,14 +73,20 @@ app.post('/signup', function (req, res) {
 });
 
 app.post('/login', function (req, res) {  
-    const values = [req.body.username, req.body.password];
-    
+    const values = [req.body.id, req.body.password];
     connection.query('SELECT * FROM Customer WHERE CustomerId = ? AND Password = ?', values, function (error, results) {
         console.log(results);
         if (results.length == 0) {
             return res.sendStatus(400);
         }
-        return res.sendStatus(200);
+        const user = {
+            id: req.body.id,
+            name: results[0].FirstName + ' ' + results[0].LastName
+        };
+        res.cookie('user', user);
+        res.render('pages/index', {
+            cookies: user
+        });
     });
 });
 

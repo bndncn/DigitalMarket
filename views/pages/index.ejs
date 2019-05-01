@@ -14,140 +14,143 @@
             </a>
         </div>
 
-        <form id="add" action="/additem" method="post">
-            <header>
-                <h3>List an item to sell:</h3>
-            </header>   
-
-            <div>
-                <label for="sellerid">Seller ID</label>
+        <% if (cookies) { %>
+            <form id="add" action="/additem" method="post">
+                <header>
+                    <h3>List an item to sell:</h3>
+                </header>   
+    
                 <div>
-                    <input type="text" id="sellerid" name="sellerid">
+                    <label for="sellerid">Seller ID</label>
+                    <div>
+                        <input type="text" id="sellerid" name="sellerid">
+                    </div> 
                 </div> 
-            </div> 
-
-            <div>
-                <label for="name">Item Name</label>
+    
                 <div>
-                    <input type="text" id="name" name="name">
-                </div> 
-            </div>            
+                    <label for="name">Item Name</label>
+                    <div>
+                        <input type="text" id="name" name="name">
+                    </div> 
+                </div>            
+                
+                <div>
+                    <label for="type">Item Type</label>
+                    <div>
+                        <input type="text" id="type" name="type">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="quantity">Quantity</label>
+                    <div>
+                        <input type="text" id="quantity" name="quantity">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="price">Price</label>
+                    <div>
+                        <input type="text" id="price" name="price">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="description">Description</label>
+                    <div>
+                        <textarea id="description" name="description"></textarea>
+                    </div> 
+                </div>            
+                
+                <div>
+                    <input type="submit" value="List Item">
+                </div>
+            </form>
+        <% } else { %>
+            <form id="signup" action="/signup" method="post">
+                <header>
+                    <h3>Sign Up</h3>
+                </header>            
+                
+                <div>
+                    <label for="id">Customer Id</label>
+                    <div>
+                        <input type="text" id="id" name="id">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="firstname">First Name</label>
+                    <div>
+                        <input type="text" id="firstname" name="firstname">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="lastname">Last Name</label>
+                    <div>
+                        <input type="text" id="lastname" name="lastname">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="email">Email</label>
+                    <div>
+                        <input type="text" id="email" name="email">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="phone">Phone</label>
+                    <div>
+                        <input type="text" id="phone" name="phone", maxlength="10">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="address">Address</label>
+                    <div>
+                        <input type="text" id="address" name="address">
+                    </div> 
+                </div>            
+    
+                <div>
+                    <label for="password">Password</label>
+                    <div>
+                        <input type="password" id="password" name="password">
+                    </div> 
+                </div>
+                
+                <div>
+                    <input type="submit" value="Login">
+                </div>
+            </form> 
             
-            <div>
-                <label for="type">Item Type</label>
+            <form id="login" action="/login" method="post">
+                <header>
+                    <h3>Login</h3>
+                </header>            
+                
                 <div>
-                    <input type="text" id="type" name="type">
-                </div> 
-            </div>
+                    <label for="id">Customer Id</label>
+                    <div>
+                        <input type="text" id="id" name="id">
+                    </div> 
+                </div>
+    
+                <div>
+                    <label for="password">Password</label>
+                    <div>
+                        <input type="password" id="password" name="password">
+                    </div> 
+                </div>
+                
+                <div>
+                    <input type="submit" value="Login">
+                </div>
+            </form>  
+        <% } %>
 
-            <div>
-                <label for="quantity">Quantity</label>
-                <div>
-                    <input type="text" id="quantity" name="quantity">
-                </div> 
-            </div>
-
-            <div>
-                <label for="price">Price</label>
-                <div>
-                    <input type="text" id="price" name="price">
-                </div> 
-            </div>
-
-            <div>
-                <label for="description">Description</label>
-                <div>
-                    <textarea id="description" name="description"></textarea>
-                </div> 
-            </div>            
-            
-            <div>
-                <input type="submit" value="List Item">
-            </div>
-        </form>
-
-        <form id="signup" action="/signup" method="post">
-            <header>
-                <h3>Sign Up</h3>
-            </header>            
-            
-            <div>
-                <label for="id">Customer ID</label>
-                <div>
-                    <input type="text" id="id" name="id">
-                </div> 
-            </div>
-
-            <div>
-                <label for="firstname">First Name</label>
-                <div>
-                    <input type="text" id="firstname" name="firstname">
-                </div> 
-            </div>
-
-            <div>
-                <label for="lastname">Last Name</label>
-                <div>
-                    <input type="text" id="lastname" name="lastname">
-                </div> 
-            </div>
-
-            <div>
-                <label for="email">Email</label>
-                <div>
-                    <input type="text" id="email" name="email">
-                </div> 
-            </div>
-
-            <div>
-                <label for="phone">Phone</label>
-                <div>
-                    <input type="text" id="phone" name="phone", maxlength="10">
-                </div> 
-            </div>
-
-            <div>
-                <label for="address">Address</label>
-                <div>
-                    <input type="text" id="address" name="address">
-                </div> 
-            </div>            
-
-            <div>
-                <label for="password">Password</label>
-                <div>
-                    <input type="password" id="password" name="password">
-                </div> 
-            </div>
-            
-            <div>
-                <input type="submit" value="Login">
-            </div>
-        </form> 
-        
-        <form id="login" action="/login" method="post">
-            <header>
-                <h3>Login</h3>
-            </header>            
-            
-            <div>
-                <label for="username">Username</label>
-                <div>
-                    <input type="text" id="username" name="username">
-                </div> 
-            </div>
-
-            <div>
-                <label for="password">Password</label>
-                <div>
-                    <input type="password" id="password" name="password">
-                </div> 
-            </div>
-            
-            <div>
-                <input type="submit" value="Login">
-            </div>
-        </form>  
     </body>
     
     <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
