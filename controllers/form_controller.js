@@ -54,8 +54,8 @@ $(document).ready(function() {
             },
 
             error: function() {
-                alert('You have entered the wrong password');
                 $('#login')[0].reset();
+                alert('You have entered the wrong password');
             }
 
         });
@@ -85,12 +85,16 @@ $(document).ready(function() {
             url: '/addreview',
             
             success: function(response) {
-                alert('Success: Review written');
                 $('#reviews').append(response);
+                alert('Success: Review written');
             },
-            
-            error: function() {
-                alert('You have already written a review for this item');
+            error: function(xhr) {
+                if (JSON.parse(xhr.responseText).code == 'ER_DUP_ENTRY') {
+                    alert('You have already written a review for this item');
+                }
+                else {
+                    alert('Please login to write a review');
+                }
             }
             
         });

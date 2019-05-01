@@ -165,4 +165,40 @@ app.get('/items/:id', function (req, res) {
     });
 });
 
+app.post('/purchase', function (req, res) {
+    const quantity = req.body.quantity;
+    const itemId = req.cookies.itemId;
+    
+    connection.query('SELECT Quantity FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [itemId], function (error, results) {
+        let amountLeft = results[0].Quantity;
+
+        if (quantity > amountLeft) {
+            return res.sendStatus(400);
+        }
+        amountLeft -= quantity;
+
+        // If the item is out of stock, delete the item entry
+        if (amountLeft == 0) {
+            connection.query('DELETE FROM Item WHERE ItemId = ?', [itemId], function (error, results) {
+                if (error) {
+                    console.log(error);
+                    return res.status(400).json(error);
+                }
+                console.log(results);
+            });
+        }
+        else {
+            // Else update the item's quantity
+            connection.query('UPDATE Item SET Quantity = ? WHERE ItemId = ?', [amountLeft, itemId], function (error, results) {
+                if (error) {
+                    console.log(error);
+                    return res.status(400).json(error);
+                }
+                console.log(results);
+            });
+        }
+        
+    });
+});
+
 app.listen(port, () => console.log('Starting DigitalMarket!'));
