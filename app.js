@@ -172,8 +172,9 @@ app.post('/purchase', function (req, res) {
     connection.query('SELECT Quantity FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [itemId], function (error, results) {
         let amountLeft = results[0].Quantity;
 
-        if (quantity > amountLeft) {
-            return res.sendStatus(400);
+        // The purchase quantity should be between 0 and the amount left in stock.
+        if (quantity > amountLeft || quantity <= 0) {
+            return res.status(400).json({ quantity: amountLeft });
         }
         amountLeft -= quantity;
 
@@ -197,6 +198,10 @@ app.post('/purchase', function (req, res) {
                 console.log(results);
             });
         }
+
+        res.render('pages/index', {
+            id: req.cookies.id
+        });
         
     });
 });

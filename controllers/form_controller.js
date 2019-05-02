@@ -100,5 +100,26 @@ $(document).ready(function() {
         });
         $('#addreview')[0].reset();
     });
+
+    $('#purchase').submit(function (ev) {
+        ev.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data : $(this).serialize(),
+            url: '/purchase',
+            
+            success: function(response) {
+                document.open();
+                document.write(response);
+                document.close();
+                alert('You have successfully purchased the item!');
+            },
+            error: function(xhr) {
+                alert('Please enter a number from 1 to ' + JSON.parse(xhr.responseText).quantity);
+            }
+            
+        });
+        $('#addreview')[0].reset();
+    });
     
 });
