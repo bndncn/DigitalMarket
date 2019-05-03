@@ -52,6 +52,30 @@ app.get('/node_modules/jquery/dist/jquery.min.js', function (req, res) {
     });
 });
 
+app.get('/node_modules/bootstrap/dist/css/bootstrap.min.css', function (req, res) {
+    res.sendFile('node_modules/bootstrap/dist/css/bootstrap.min.css', {
+        root: __dirname
+    });
+});
+
+app.get('/node_modules/popper.js/dist/umd/popper.min.js', function (req, res) {
+    res.sendFile('node_modules/popper.js/dist/umd/popper.min.js', {
+        root: __dirname
+    });
+});
+
+app.get('/node_modules/bootstrap/dist/js/bootstrap.min.js', function (req, res) {
+    res.sendFile('node_modules/bootstrap/dist/js/bootstrap.min.js', {
+        root: __dirname
+    });
+});
+
+app.get('/css/styles.css', function (req, res) {
+    res.sendFile('css/styles.css', {
+        root: __dirname
+    });
+});
+
 app.post('/signup', function (req, res) {  
     const customer = {
         CustomerId: req.body.id,
@@ -207,3 +231,4 @@ app.post('/purchase', function (req, res) {
 });
 
 app.listen(port, () => console.log('Starting DigitalMarket!'));
+

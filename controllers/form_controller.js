@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    $('#loginbtn').css('cursor', 'pointer');
+    $('#signupbtn').css('cursor', 'pointer');
+    $('#logout').css('cursor', 'pointer');
+    
     $('#additem').submit(function (ev) {
         ev.preventDefault();
         $.ajax({
@@ -61,7 +65,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#logout').submit(function (ev) {
+    $('#logout').click(function (ev) {
         ev.preventDefault();
         $.ajax({
             type: 'POST',
@@ -121,5 +125,14 @@ $(document).ready(function() {
         });
         $('#addreview')[0].reset();
     });
+
+    $('#loginbtn').click(function() {
+        $('#loginModal').modal('show');
+    });
+
+    $('#signupbtn').click(function() {
+        $('#signupModal').modal('show');
+    });
     
 });
+
