@@ -152,12 +152,12 @@ app.post('/addreview', function (req, res) {
             console.log(error);
             return res.status(400).json(error);
         }
-        const newHTML = `<ul>
-            <li>Review Title: ${req.body.title}</li>
-            <li>Reviewer: ${req.cookies.id}</li>
-            <li>Rating: ${req.body.rating}</li>
+        const newHTML = `<div>
+            <div>Review Title: ${req.body.title}</div>
+            <div>Reviewer: ${req.cookies.id}</div>
+            <div>Rating: ${req.body.rating}</div>
             ${req.body.review}
-        </ul>`
+        </div>`
         return res.json(newHTML);
     });
 });
@@ -165,7 +165,8 @@ app.post('/addreview', function (req, res) {
 app.get('/items', function (req, res) {
     connection.query('SELECT * FROM Item', function (error, results) {
         res.render('pages/items', {
-            items: results
+            items: results,
+            id: req.cookies.id
         });
     });
 });
@@ -181,7 +182,8 @@ app.get('/items/:id', function (req, res) {
         connection.query('SELECT * FROM Item INNER JOIN Review ON Item.ItemId = Review.ItemId WHERE Item.ItemId = ?', [id], function (error, results) {
             res.render('pages/detaileditem', {
                 item: item,
-                reviews: results
+                reviews: results,
+                id: req.cookies.id
             });
             console.log(item);
             console.log(results);
