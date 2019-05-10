@@ -119,7 +119,10 @@ $(document).ready(function() {
                 alert('You have successfully purchased the item!');
             },
             error: function(xhr) {
-                alert('Please enter a number from 1 to ' + JSON.parse(xhr.responseText).quantity);
+                if (JSON.parse(xhr.responseText).quantity)
+                    alert('Please enter a number from 1 to ' + JSON.parse(xhr.responseText).quantity);
+                else if (JSON.parse(xhr.responseText).error)
+                    alert(JSON.parse(xhr.responseText).error);
             }
             
         });

@@ -26,8 +26,6 @@ function generateId() {
 }
 
 app.get('/', function (req, res) {
-    console.log('Homepage');
-    console.log(req.cookies);
     if (req.cookies.id) {
         res.render('pages/index', {
             id: req.cookies.id
@@ -89,7 +87,6 @@ app.post('/signup', function (req, res) {
     
     connection.query('INSERT INTO `Customer` SET ?', customer, function (error, results) {
         if (error) {
-            console.log(error);
             return res.status(400).json(error);
         }
         return res.sendStatus(200);
@@ -131,7 +128,6 @@ app.post('/additem', function (req, res) {
     
     connection.query('INSERT INTO `Item` SET ?', item, function (error, results) {
         if (error) {
-            console.log(error);
             return res.status(400).json(error);
         }
         return res.json(item);
@@ -149,7 +145,6 @@ app.post('/addreview', function (req, res) {
     
     connection.query('INSERT INTO `Review` SET ?', review, function (error, results) {
         if (error) {
-            console.log(error);
             return res.status(400).json(error);
         }
         const newHTML = `<div>
@@ -185,8 +180,6 @@ app.get('/items/:id', function (req, res) {
                 reviews: results,
                 id: req.cookies.id
             });
-            console.log(item);
-            console.log(results);
         });
     });
 });
@@ -194,6 +187,10 @@ app.get('/items/:id', function (req, res) {
 app.post('/purchase', function (req, res) {
     const quantity = req.body.quantity;
     const itemId = req.cookies.itemId;
+
+    if (!req.cookies.id) {
+        return res.status(400).json({ error: 'You must be logged in to purchase an item!' });
+    }
     
     connection.query('SELECT Quantity FROM Customer INNER JOIN Item ON Customer.CustomerId = Item.SellerId WHERE ItemId = ?', [itemId], function (error, results) {
         let amountLeft = results[0].Quantity;
@@ -208,20 +205,16 @@ app.post('/purchase', function (req, res) {
         if (amountLeft == 0) {
             connection.query('DELETE FROM Item WHERE ItemId = ?', [itemId], function (error, results) {
                 if (error) {
-                    console.log(error);
                     return res.status(400).json(error);
                 }
-                console.log(results);
             });
         }
         else {
             // Else update the item's quantity
             connection.query('UPDATE Item SET Quantity = ? WHERE ItemId = ?', [amountLeft, itemId], function (error, results) {
                 if (error) {
-                    console.log(error);
                     return res.status(400).json(error);
                 }
-                console.log(results);
             });
         }
 
